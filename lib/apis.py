@@ -182,6 +182,12 @@ apis = {
         }
     },
 
+    "/me/wallet/tip": {
+        "post": {
+            "auth": True
+        }
+    },
+
     "/articles/article_id/comments": {
         "get": {
             "article_id": 'path',
@@ -234,6 +240,32 @@ apis = {
     "/me/unread_notification_managers": {
         "get": {
             "auth": True
+        },
+        "put": {
+            "auth": True
+        }
+    },
+
+    // topic related calls
+    "/topics": {
+        "get": {
+        }
+    },
+
+    // search related calls
+
+    "/search/articles": {
+        "get": {
+            "pagination": True,
+            "by_page": True
+        }
+    },
+
+    "/search/users": {
+        "get": {
+            "pagination": True,
+            "by_page": True
         }
     }
+
 }
