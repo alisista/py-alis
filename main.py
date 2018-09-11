@@ -136,6 +136,14 @@ def main():
     #          {"method": "POST", "username": "xxxxx", "password": "xxxxx"},
     #          lambda err, res: pprint(res))
 
+    # test 18 "/me/wallet/balance"
+    # Alis.api("/me/wallet/balance", {}, {"username": "xxxxx", "password": "xxxxx"}, lambda err, res: pprint(res))
+
+    # test 19 "/me/unread_notification_managers"
+    # Alis.api("/me/unread_notification_managers", {}, {"username": "xxxxx", "password": "xxxxx"}, lambda err, res: pprint(res))
+
+    # test 20 "/me/notifications"
+    # Alis.api("/me/notifications", {}, {"username": "xxxxx", "password": "xxxxx "}, lambda err, res: pprint(res))
 
 if __name__=='__main__':
     main()
