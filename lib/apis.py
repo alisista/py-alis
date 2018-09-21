@@ -205,7 +205,7 @@ apis = {
         "post": {
             "auth": True,
             "article_id": "path",
-            "comment": "body"  # {"text": "comment"}
+            "comment": "body"
         }
     },
 
@@ -246,13 +246,10 @@ apis = {
         }
     },
 
-    // topic related calls
     "/topics": {
         "get": {
         }
     },
-
-    // search related calls
 
     "/search/articles": {
         "get": {
