@@ -1,33 +1,28 @@
 import asyncio
 from pprint import pprint
-from lib.apis import apis
-from lib.Call import Call
 
 
-class Alis:
+def api(path, *args):
+    args = list(args)
+    args.append({"path_name": path})
+    Call.call(args)
 
-    @staticmethod
-    def api(path, *args):
-        args = list(args)
-        args.append({"path_name": path})
-        Call.call(args)
 
-    @staticmethod
-    def api_p(path, *args):
-        args = list(args)
-        args.append({"path_name": path, "ispromise": True})
-        loop = asyncio.get_event_loop()
-        return loop.run_until_complete(Call.call_p(args))
+def api_p(path, *args):
+    args = list(args)
+    args.append({"path_name": path, "ispromise": True})
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(Call.call_p(args))
 
 
 def main():
     print("test scripts")
 
     # test 1: "/articles/recent"
-    # Alis.api("/articles/recent", {}, {"method": "GET"}, lambda err, json: pprint(json))
+    # api("/articles/recent", {}, {"method": "GET"}, lambda err, json: pprint(json))
 
     # test 2: "/articles/recent" (promise)
-    # pprint(Alis.api_p("/articles/recent", {'article_id': '2xANPLY5QrN1'}, {"method": "GET"}))
+    # pprint(api_p("/articles/recent", {'article_id': '2xANPLY5QrN1'}, {"method": "GET"}))
 
     # test 3: "/articles/popular" with get_all function
     # page = 0
@@ -41,7 +36,7 @@ def main():
     #         stop()
     #     else:
     #         next()
-    # Alis.api("/articles/popular", {"limit": 10}, {"method": "GET", "getAll": get_all}, lambda err, json: None)
+    # api("/articles/popular", {"limit": 10}, {"method": "GET", "getAll": get_all}, lambda err, json: None)
 
     # test 4: "/articles/popular" with get_all function (promise)
     # page = 0
@@ -55,17 +50,17 @@ def main():
     #         return True
     #     else:
     #         return False
-    # Alis.api_p("/articles/popular", {"limit": 10}, {"method": "GET", "getAll": get_all_p})
+    # api_p("/articles/popular", {"limit": 10}, {"method": "GET", "getAll": get_all_p})
 
     # test 5: "/me/info"
-    # Alis.api("/me/info", {}, {"username": "xxxxx", "password": "xxxxx"}, lambda err, json: pprint(json))
+    # api("/me/info", {}, {"username": "xxxxx", "password": "xxxxx"}, lambda err, json: pprint(json))
 
     # test 6: "/me/info" (promise)
-    # json = Alis.api_p("/me/info", {}, {"username": "xxxxx", "password": "xxxxx"})
+    # json = api_p("/me/info", {}, {"username": "xxxxx", "password": "xxxxx"})
     # pprint(json)
 
     # test 7: "/users/user_id/articles/public"
-    # Alis.api("/users/user_id/articles/public", {"user_id": "fukurou"}, {}, lambda err, json: pprint(json))
+    # api("/users/user_id/articles/public", {"user_id": "fukurou"}, {}, lambda err, json: pprint(json))
 
     # test 8: "/users/user_id/articles/public" with get_all_p (primise)
     # page = 0
@@ -146,4 +141,10 @@ def main():
     # Alis.api("/me/notifications", {}, {"username": "xxxxx", "password": "xxxxx "}, lambda err, res: pprint(res))
 
 if __name__=='__main__':
+    from lib.apis import apis
+    from lib.Call import Call
     main()
+else:
+    from alis.lib.apis import apis
+    from alis.lib.Call import Call
+
