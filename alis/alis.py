@@ -140,6 +140,9 @@ def main():
     # test 20 "/me/notifications"
     # Alis.api("/me/notifications", {}, {"username": "xxxxx", "password": "xxxxx "}, lambda err, res: pprint(res))
 
+    # test 20: "/articles/article_id/supporters"
+    # api("/articles/article_id/supporters", {"article_id": "2jDOBZMXeWlv"}, {}, lambda err, res: pprint(res))
+
 if __name__=='__main__':
     from lib.apis import apis
     from lib.Call import Call
