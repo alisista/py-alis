@@ -1,3 +1,5 @@
+import subprocess
+subprocess.check_call(["./src/compiler/native"])
 # -*- coding: utf-8 -*-
 
 # Learn more: https://github.com/kennethreitz/setup.py
