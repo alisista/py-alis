@@ -263,6 +263,11 @@ apis = {
             "pagination": True,
             "by_page": True
         }
-    }
+    },
 
+    "/articles/article_id/supporters": {
+        "get": {
+            "article_id": 'path'
+        }
+    }
 }
