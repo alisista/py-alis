@@ -12,31 +12,6 @@ CLIENT_ID = '2gri5iuukve302i4ghclh6p5rg'
 class Cognito:
 
     @staticmethod
-    def get_cache(conf):
-        tokens = None
-        file_path = os.path.dirname(os.path.abspath(__file__)) + f"/../.alis/{conf['username']}.json"
-        if os.path.isfile(file_path):
-            try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    tokens = json.load(f)
-                if not tokens.get("id_token"):
-                    tokens = None
-            except:
-                # too broad exception
-                pass
-        return tokens
-
-    @staticmethod
-    def rm_cache(conf):
-        file_path = os.path.dirname(os.path.abspath(__file__)) + f"/../.alis/{conf['username']}.json"
-        if os.path.isfile(file_path):
-            try:
-                os.remove(file_path)
-            except:
-                # too broad exception
-                pass
-
-    @staticmethod
     def get_cognito_user(conf):
         username = conf['username']
         cognito = WarrantCognito(POOL_ID, CLIENT_ID, user_pool_region=POOL_REGION, username=username)
@@ -50,14 +25,6 @@ class Cognito:
             "id_token": session.id_token,
             "refresh_token": session.refresh_token
         }
-
-        dir_path = os.path.dirname(os.path.abspath(__file__)) + "/../.alis"
-        if not os.path.isdir(dir_path):
-            os.mkdir(dir_path)
-        file_path = dir_path + f"/{conf['username']}.json"
-        with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump(tokens, f)
-
         cb(tokens)
 
     @staticmethod

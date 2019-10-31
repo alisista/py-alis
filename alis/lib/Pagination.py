@@ -90,6 +90,9 @@ class Pagination:
                     if conf.get("getAll"):
                         conf["getAll"]((pagination.json or None), lambda: pagination.next(opts),
                                        lambda: pagination.stop(), pagination)
+                    elif conf.get("getAllSync"):
+                        conf["getAllSync"]((pagination.json or None), lambda: pagination.next(opts),
+                                       lambda: pagination.stop(), pagination)
                     else:
                         cb(None, pagination.json)
 
@@ -119,7 +122,6 @@ class Pagination:
 
             elif conf.get("getAllSync"):
                 is_stop = conf["getAllSync"](pagination.json, pagination)
-
                 if is_stop or not pagination.isNext:
                     return json
                 else:
