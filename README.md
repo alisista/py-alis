@@ -1,5 +1,7 @@
 # ALIS API Python Client
 
+[![CircleCI](https://circleci.com/gh/alisista/py-alis/tree/master.svg?style=svg)](https://circleci.com/gh/alisista/py-alis/tree/master)
+
 This is an API Python client of [alis.to](https://alis.to). The original code ([ALIS API Node.js Client](https://github.com/alisista/alis))
 was written by [OK Rabbit](https://github.com/ocrybit) ([@ocrybit](https://twitter.com/ocrybit)) and rewritten in Python by [hoosan](https://github.com/hoosan)([@hoosan16](https://twitter.com/hoosan16)).
 
@@ -53,7 +55,18 @@ Alis.api_p("/me/articles/public", {"limit": 2}, {"username": "xxxxx", "password"
 
 ## Installation
 
-The `pip` installation will be available in the near future.
+The `pip` installation is available.
+
+```
+$ pip install alis
+```
+
+If you wish to use conda, install pip before alis so as not to mess up libraries.
+
+```
+$ conda install pip
+$ pip install alis
+```
 
 
 ---
