@@ -33,7 +33,10 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            # pip install -r requirements.txt
+            pip install -r requirements.txt --user
             pip install -r requirements.txt
+            echo $HOME
 
       - save_cache:
           paths:
@@ -54,9 +57,9 @@ jobs:
       - run:
           name: run tests
           command: |
-            coverage run -m pytest --cov=alis
-            coverage report
-            coverage html  # open htmlcov/index.html in a browser          
+            $HOME/.local/bin/coverage run -m pytest --cov=alis
+            $HOME/.local/bin/coverage report
+            $HOME/.local/bin/coverage html  # open htmlcov/index.html in a browser          
 
       - store_artifacts:
           # path: test-reports
