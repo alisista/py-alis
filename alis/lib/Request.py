@@ -12,28 +12,18 @@ class Request:
 
     @staticmethod
     def _auth(conf, cb):
-        tokens = Cognito.get_cache(conf)
         headers = {}
-        if tokens:
-            headers["Authorization"] = tokens["id_token"]
-            conf["id_token"] = tokens["id_token"]
-            conf["refresh_token"] = tokens["refresh_token"]
-            conf["token_source"] = "cache"
-            cb(headers)
-        elif not tokens and not conf.get("password"):
-            raise KeyError("password is required")
-        else:
-            def func_token(token):
-                if not token:
-                    raise ValueError("the wrong username or password")
-                else:
-                    nonlocal headers, conf, cb
-                    headers["Authorization"] = token["id_token"]
-                    conf["id_token"] = token["id_token"]
-                    conf["refresh_token"] = token["refresh_token"]
-                    conf["token_source"] = "cognito"
-                    cb(headers)
-            Cognito.get_tokens(conf, func_token)
+        def func_token(token):
+            if not token:
+                raise ValueError("the wrong username or password")
+            else:
+                nonlocal headers, conf, cb
+                headers["Authorization"] = token["id_token"]
+                conf["id_token"] = token["id_token"]
+                conf["refresh_token"] = token["refresh_token"]
+                conf["token_source"] = "cognito"
+                cb(headers)
+        Cognito.get_tokens(conf, func_token)
 
     @staticmethod
     def auth(conf, cb):
@@ -79,9 +69,11 @@ class Request:
                     if conf.get("refresh_token"):
                         tokens = await Cognito.refresh_token_p(conf)
                         token_source = "cognito"
-                        tokens = tokens.get() or Cognito.get_cache(conf)
-                    else:
-                        tokens = tokens or Cognito.get_cache(conf)
+                        tokens = tokens.get()
+                        # tokens = tokens.get() or Cognito.get_cache(conf)
+                    # else:
+                    #     tokens = tokens or Cognito.get_cache(conf)
+
                     if tokens:
                         headers["Authorization"] = tokens["id_token"]
                         conf["id_token"] = tokens["id_token"]
@@ -91,7 +83,7 @@ class Request:
                         raise KeyError("password is required")
                     else:
                         tokens = await Cognito.get_tokens_p(conf)
-                        if not tokens:
+                        if not tokens.get():
                             raise ValueError("the wrong username or password")
                         else:
                             headers["Authorization"] = tokens.get()["id_token"]
@@ -163,11 +155,7 @@ class Request:
                             else:
                                 conf["refresh_token"] = None
                                 conf["id_token"] = None
-                                if conf["token_source"] == "cognito":
-                                    cb(json, None)
-                                else:
-                                    if conf["token_source"] == "cache":
-                                        Cognito.rm_cache(conf)
+                                cb(json, None)
                         Cognito.refresh_token(conf, func_token)
                     else:
                         conf["refresh_token"] = None
@@ -233,12 +221,7 @@ class Request:
                     else:
                         conf["refresh_token"] = None
                         conf["id_token"] = None
-                        if conf["token_source"] == "cognito":
-                            raise err
-                        else:
-                            if conf["token_source"] == "cache":
-                                Cognito.rm_cache(conf)
-                            return await Request.request_p(url, opts, conf)
+                        raise err
                 else:
                     conf["refresh_token"] = None
                     conf["id_token"] = None
