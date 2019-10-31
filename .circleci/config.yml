@@ -54,9 +54,9 @@ jobs:
       - run:
           name: run tests
           command: |
-            $HOME/.local/bin/coverage run -m pytest --cov=alis
-            $HOME/.local/bin/coverage report
-            $HOME/.local/bin/coverage html  # open htmlcov/index.html in a browser          
+            coverage run -m pytest --cov=alis
+            coverage report
+            coverage html  # open htmlcov/index.html in a browser          
 
       - store_artifacts:
           # path: test-reports
