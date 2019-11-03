@@ -33,10 +33,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            # pip install -r requirements.txt
-            pip install -r requirements.txt --user
             pip install -r requirements.txt
-            echo $HOME
 
       - save_cache:
           paths:
@@ -48,20 +45,20 @@ jobs:
       # other common Python testing frameworks include pytest and nose
       # https://pytest.org
       # https://nose.readthedocs.io
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       . venv/bin/activate
-      #       python -m pytest --cov=alis
-
       - run:
           name: run tests
           command: |
-            $HOME/.local/bin/coverage run -m pytest --cov=alis
-            $HOME/.local/bin/coverage report
-            $HOME/.local/bin/coverage html  # open htmlcov/index.html in a browser          
+            . venv/bin/activate
+            python -m pytest --cov=alis --cov-report=html:test-reports
+
+      # - run:
+      #     name: run tests
+      #     command: |
+      #       ./venv/lib/python3.6/site-packages/coverage run -m pytest --cov=alis
+      #       ./venv/lib/python3.6/site-packages/coverage report
+      #       ./venv/lib/python3.6/site-packages/coverage html  # open htmlcov/index.html in a browser          
 
       - store_artifacts:
-          # path: test-reports
-          # destination: test-reports
-          path: htmlcov
+          path: test-reports
+          destination: test-reports
+          # path: htmlcov
