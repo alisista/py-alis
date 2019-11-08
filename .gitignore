@@ -1,6 +1,7 @@
 __pycache__/
 .alis/
 
+.eggs
 build/
 dist/
 *.egg-info/
