@@ -1,4 +1,1 @@
-ALIS Python API Client
-========================
-
----------------
+ALIS API Python Client
