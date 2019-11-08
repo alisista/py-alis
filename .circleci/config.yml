@@ -49,9 +49,16 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python -m pytest --cov=alis
+            python -m pytest --cov=alis --cov-report=html:test-reports
+
+      # - run:
+      #     name: run tests
+      #     command: |
+      #       ./venv/lib/python3.6/site-packages/coverage run -m pytest --cov=alis
+      #       ./venv/lib/python3.6/site-packages/coverage report
+      #       ./venv/lib/python3.6/site-packages/coverage html  # open htmlcov/index.html in a browser          
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
-  
+          # path: htmlcov
