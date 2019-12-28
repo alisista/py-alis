@@ -10,6 +10,10 @@ class Response:
         self.json = json
         self.url = url
         self.cb = cb
+
+        if isinstance(self.json, list):
+            self.json = {"Items": self.json} 
+
         self.LEK = self.json.get("LastEvaluatedKey") or {}
         self.itemCount = len(self.json.get("Items") or [])
         if apis[conf["path_name"]][conf.get("method") or "get"].get("by_page"):

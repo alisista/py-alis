@@ -165,3 +165,18 @@ class TestWrongAPI:
     def test_wrong_api_promise(self):
         with pytest.raises(KeyError, match="api call"):
             alis.api_p("/wrong/api")
+
+class TestSearchTag:
+
+    def test_search_articles_tag(self):
+        page = 0
+        async def get_all_p(json, obj):
+            nonlocal page
+            page += 1
+            if page == 3:
+                return True
+            else:
+                return False
+    
+        alis.api_p("/search/articles", {"tag": "紅組"}, {"getAll": get_all_p})
+        assert True
