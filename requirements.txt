@@ -27,7 +27,7 @@ requests==2.22.0
 s3transfer==0.1.13
 six==1.11.0
 typing==3.6.4
-urllib3==1.25.6
+urllib3==1.25.8
 warrant==0.6.1
 wcwidth==0.1.7
 zipp==0.6.0
