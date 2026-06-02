@@ -6,7 +6,7 @@ certifi==2018.8.13
 chardet==3.0.4
 coverage==4.5.4
 docutils==0.14
-ecdsa==0.13.3
+ecdsa==0.19.2
 envs==1.2.6
 future==0.16.0
 idna==2.7
